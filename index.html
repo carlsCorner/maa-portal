@@ -7,20 +7,22 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Styles are the same as before -->
+
     <style>
         :root { --navy-blue: #001f3f; --darker-blue: #001224; --navy-gold: #FFD700; --light-gray: #c0c0c0; --danger-red: #dc3545; --emergency-red: #b30000; }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--darker-blue); color: var(--light-gray); }
-        .main-title { font-family: 'Orbitron', sans-serif; color: var(--navy-gold); }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--darker-blue); color: var(--light-gray); padding-bottom: 50px; }
+        .main-title { font-family: 'Orbitron', sans-serif; color: var(--navy-gold); text-shadow: 2px 2px 4px rgba(0,0,0,0.7); }
         .nav-tabs .nav-link { font-family: 'Orbitron', sans-serif; background: transparent; border: 1px solid var(--navy-blue); color: var(--light-gray); }
         .nav-tabs .nav-link.active { background-color: var(--navy-blue); color: var(--navy-gold); border-color: var(--navy-gold); }
         .tab-content { background-color: rgba(0, 31, 63, 0.9); border: 1px solid var(--navy-gold); border-top: none; padding: 2rem; }
         .card, .modal-content, .table, .list-group-item { background-color: var(--navy-blue); border-color: var(--light-gray); color: var(--light-gray); }
-        .card-header, .modal-header { background-color: var(--darker-blue); color: var(--navy-gold); border-bottom: 1px solid var(--navy-gold); }
+        .card-header, .modal-header { background-color: var(--darker-blue); color: var(--navy-gold); font-family: 'Orbitron', sans-serif; border-bottom: 1px solid var(--navy-gold); }
         .form-control, .form-select { background-color: var(--darker-blue); color: white; border: 1px solid var(--light-gray); }
-        .form-label { color: var(--navy-gold); } .btn-primary { background-color: var(--navy-gold); border-color: var(--navy-gold); color: var(--navy-blue); font-weight: bold; }
+        .form-label { color: var(--navy-gold); }
+        .btn-primary { background-color: var(--navy-gold); border-color: var(--navy-gold); color: var(--navy-blue); font-weight: bold; }
         .nested-nav .nav-link.active { background-color: var(--navy-blue); color: var(--navy-gold); border-color: var(--navy-gold); }
-        .dashboard-stat { background-color: var(--darker-blue); border: 1px solid var(--navy-gold); } .table > thead { color: var(--navy-gold); }
+        .dashboard-stat { background-color: var(--darker-blue); border: 1px solid var(--navy-gold); }
+        .table > thead { color: var(--navy-gold); }
         .status-overdue { background-color: #5d1c21 !important; color: white !important; font-weight: bold; }
         .log-violation { background-color: #664d03 !important; color: white !important; }
         .status-emergency { background-color: var(--emergency-red) !important; color: white !important; font-weight: bold; animation: pulse 1.5s infinite; }
@@ -29,136 +31,257 @@
     </style>
 </head>
 <body>
-    <!-- The entire HTML body (all the divs, forms, etc.) is exactly the same as the previous version. -->
-    <!-- It has been omitted here for brevity, but you should copy the entire <body> section from the previous code block. -->
-    <!-- The ONLY change is in the <script> tag below. -->
+
     <div class="container my-4">
-        <!-- ALL PREVIOUS HTML CONTENT GOES HERE -->
-        <!-- Just copy and paste the entire <div class="container">...</div> from the last response -->
-        <!-- The only new part is the script section below -->
+        <header class="text-center mb-4"><h1 class="main-title">NTTC Lackland Liberty Portal</h1><p class="sub-title">Naval Security Force Training - Semper Fortis (Always Courageous)</p></header>
+
+        <ul class="nav nav-tabs" id="mainTab" role="tablist">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#student-portal" type="button">Student Portal</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#staff-portal-wrapper" type="button">Command Staff</button></li>
+        </ul>
+
+        <div class="tab-content" id="mainTabContent">
+            <!-- Student Portal HTML (same as before) -->
+            <div class="tab-pane fade show active" id="student-portal" role="tabpanel">
+                <ul class="nav nav-pills mb-3 nested-nav" id="studentPills" role="tablist">
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#emergency-alert-content" type="button">EMERGENCY ALERT</button></li>
+                    <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#liberty-checkout-content" type="button">Liberty Check-Out</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#liberty-checkin-content" type="button">Liberty Check-In</button></li>
+                    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#info-content" type="button">Important Info</button></li>
+                </ul>
+                <div class="tab-content" id="studentPillsContent">
+                    <div class="tab-pane fade" id="emergency-alert-content" role="tabpanel">
+                        <h3 class="text-danger">Emergency Alert System</h3>
+                        <p class="text-warning"><strong>USE ONLY FOR A GENUINE EMERGENCY.</strong> This immediately sends your name and location to the Command.</p>
+                        <form id="emergencyForm">
+                            <div class="col-md-6 mb-3"><label for="emergencyName" class="form-label">Your Full Name (LAST, FIRST)</label><input type="text" class="form-control" id="emergencyName" required></div>
+                            <div class="mb-3"><label for="emergencyMessage" class="form-label">Brief Message (Optional)</label><textarea class="form-control" id="emergencyMessage" rows="2"></textarea></div>
+                            <button type="submit" class="btn btn-danger btn-lg w-100">SEND EMERGENCY ALERT NOW</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade show active" id="liberty-checkout-content" role="tabpanel">
+                        <h4>Liberty Check-Out</h4><p>On-site location will be verified.</p>
+                        <form id="libertyForm" class="needs-validation" novalidate><div class="row g-3"><div class="col-md-6"><label for="studentName" class="form-label">Name (LAST, FIRST)</label><input type="text" class="form-control" id="studentName" name="student_name" required></div><div class="col-md-6"><label for="libertyPhase" class="form-label">Liberty Phase</label><select class="form-select" id="libertyPhase" name="liberty_phase" required><option value="" selected disabled>Select...</option><option value="1">Phase I</option><option value="2">Phase II</option><option value="3">Phase III</option></select></div><div class="col-md-6"><label for="libertyBuddy" class="form-label">Liberty Buddy</label><input type="text" class="form-control" id="libertyBuddy" name="liberty_buddy" required></div><div class="col-md-6"><label for="studentPhone" class="form-label">Your Phone</label><input type="tel" class="form-control" id="studentPhone" name="student_phone" required></div><div class="col-12"><label for="destination" class="form-label">Destination</label><input type="text" class="form-control" id="destination" name="destination" required></div></div><hr class="my-4"><div class="form-check"><input type="checkbox" class="form-check-input" id="policyAck" required><label class="form-check-label" for="policyAck">I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#libertyPolicyModal">Liberty Policy</a>.</label></div><button class="btn btn-primary btn-lg mt-4" type="submit">Verify Location & Check Out</button></form>
+                    </div>
+                    <div class="tab-pane fade" id="liberty-checkin-content" role="tabpanel">
+                        <h4>Liberty Check-In</h4><p>On-site location will be verified.</p>
+                        <form id="checkinForm"><div class="col-md-6 mb-3"><label for="studentNameCheckin" class="form-label">Name (LAST, FIRST)</label><input type="text" class="form-control" id="studentNameCheckin" required></div><button class="btn btn-primary btn-lg" type="submit">Verify Location & Check In</button></form>
+                    </div>
+                    <div class="tab-pane fade" id="info-content" role="tabpanel">
+                        <h4>Important Information & Contacts</h4>
+                        <div class="card"><div class="card-header">Emergency Contacts</div><ul class="list-group list-group-flush"><li class="list-group-item"><strong>NTTC Lackland Command Duty Officer (CDO):</strong> (210) 555-1234</li><li class="list-group-item"><strong>JBSA-Lackland Security Forces:</strong> (210) 671-2018</li><li class="list-group-item"><strong>SAPR 24/7 Hotline:</strong> (210) 808-7272</li><li class="list-group-item"><strong>Duty Chaplain:</strong> (210) 555-9012</li><li class="list-group-item"><strong>Suicide & Crisis Lifeline:</strong> Dial 988</li></ul></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Staff Portal HTML (same as before) -->
+            <div class="tab-pane fade" id="staff-portal-wrapper" role="tabpanel">
+                <div id="staffLogin">
+                    <h4>Staff Authentication Required</h4><form id="loginForm"><div class="mb-3"><label for="password" class="form-label">Password</label><input type="password" class="form-control" id="password"></div><button type="submit" class="btn btn-primary">Access Dashboard</button></form>
+                </div>
+                <div id="staffContent" style="display: none;">
+                    <h4 class="main-title">Live Student Accountability Dashboard</h4>
+                    <h5 class="mt-4 text-danger">EMERGENCY ALERTS</h5><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Time</th><th>Name</th><th>Message</th><th>Location</th></tr></thead><tbody id="emergencyLogBody"></tbody></table></div>
+                    <div class="row text-center my-4"><div class="col-md-6"><div class="p-3 dashboard-stat"><h6>On Liberty</h6><h2 id="onLibertyCount" class="display-4">0</h2></div></div><div class="col-md-6"><div class="p-3 dashboard-stat"><h6>Overdue</h6><h2 id="overdueCount" class="display-4 text-danger">0</h2></div></div></div>
+                    <h5 class="mt-4">Active Liberty Log</h5><div class="table-responsive"><table class="table table-hover table-sm"><thead><tr><th>Status</th><th>Name</th><th>Out</th><th>Curfew</th><th>Action</th></tr></thead><tbody id="libertyLogBody"></tbody></table></div>
+                    <h5 class="mt-5">Out-of-Vicinity Attempt Log</h5><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Time</th><th>Name</th><th>Attempted Action</th></tr></thead><tbody id="geoViolationLogBody"></tbody></table></div>
+                    <h5 class="mt-5">Today's Checked-In Log</h5><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Name</th><th>Out</th><th>In</th></tr></thead><tbody id="checkedInLogBody"></tbody></table></div>
+                </div>
+            </div>
+        </div>
+        <div id="form-result" class="alert mt-3" role="alert" style="display:none;"></div>
     </div>
+    <div class="modal fade" id="libertyPolicyModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">NTTC Lackland Liberty Portal</h5></div><div class="modal-body"><p>Liberty is a privilege. All policies remain in effect. Failure to abide will result in disciplinary action.</p></div></div></div></div>
 
-
-    <!-- =================================================================== -->
-    <!-- ======================= THE NEW SCRIPT SECTION ==================== -->
-    <!-- =================================================================== -->
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
     
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        // --- ⬇️ 1. PASTE YOUR FIREBASE CONFIG HERE ⬇️ ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyAIJRAXU9N_rPcWEyfpihC79XIzMhdpYEA",
+          authDomain: "nttc-accountability-portal.firebaseapp.com",
+          projectId: "nttc-accountability-portal",
+          storageBucket: "nttc-accountability-portal.firebasestorage.app",
+          messagingSenderId: "276392966927",
+          appId: "1:276392966927:web:3b77418cef82869a079c7a",
+          measurementId: "G-6L9DEBGEXF"
+        };
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyAIJRAXU9N_rPcWEyfpihC79XIzMhdpYEA",
-    authDomain: "nttc-accountability-portal.firebaseapp.com",
-    projectId: "nttc-accountability-portal",
-    storageBucket: "nttc-accountability-portal.firebasestorage.app",
-    messagingSenderId: "276392966927",
-    appId: "1:276392966927:web:3b77418cef82869a079c7a",
-    measurementId: "G-6L9DEBGEXF"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-
-        // --- All other configuration (Web3Forms key, GPS coords, etc.) is the same ---
+        // --- ⬇️ 2. PASTE YOUR WEB3FORMS KEY HERE ⬇️ ---
         const accessKey = "YOUR_WEB3FORMS_KEY_HERE"; 
-        const SCHOOLHOUSE_LAT = 29.4241; 
-        const SCHOOLHOUSE_LON = -98.4936; 
-        // ... (all other config variables are the same)
 
-        // --- REPLACEMENT FOR `localStorage` FUNCTIONS ---
-        // The logic inside the functions below is the only part that needs to change significantly.
-        // Instead of reading/writing to localStorage, we now read/write to Firestore.
-        
-        // --- LOGIN & DASHBOARD LOGIC (MODIFIED FOR FIREBASE) ---
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (document.getElementById('password').value === 'NTTCLACKLAND') {
-                document.getElementById('staffLogin').style.display = 'none';
-                document.getElementById('staffContent').style.display = 'block';
-                startDashboard();
-            }
-        });
+        // --- ⬇️ 3. UPDATE YOUR GPS COORDINATES HERE ⬇️ ---
+        const SCHOOLHOUSE_LAT = 29.39769; 
+        const SCHOOLHOUSE_LON = 98.62683; 
+        const ALLOWED_RADIUS_METERS = 250;
+        const curfews = { "1": 22, "2": 23.98, "3": 23.98 };
 
-        function startDashboard() {
-            // This is the magic of Firebase. `onSnapshot` is a LIVE listener.
-            // Whenever data changes in the database, this code runs automatically.
-            db.collection("libertyLog").onSnapshot(snapshot => {
-                const log = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                updateAndRenderDashboard(log);
-            });
-            db.collection("geoViolations").onSnapshot(snapshot => {
-                 const violations = snapshot.docs.map(doc => doc.data());
-                 renderGeoViolations(violations);
-            });
-            db.collection("emergencyAlerts").onSnapshot(snapshot => {
-                const alerts = snapshot.docs.map(doc => doc.data());
-                renderEmergencyAlerts(alerts);
-            });
-        }
-        
-        function updateAndRenderDashboard(log) {
-            // The logic to check for overdue students is the same,
-            // but we now update the database if a change is found.
-            log.forEach(entry => {
-                if (entry.status === "Checked Out") {
-                    const checkoutDate = new Date(entry.checkoutTime); // Assume checkoutTime is ISO string
-                    const curfew = getCurfewForEntry(entry.liberty_phase, checkoutDate);
-                    if (new Date() > curfew) {
-                        // Update the entry in Firestore
-                        db.collection("libertyLog").doc(entry.id).update({ status: "Overdue" });
-                        // Add overdue notification logic here if needed
-                    }
-                }
-            });
-            
-            // Separate logs for rendering
-            const activeLog = log.filter(e => e.status === "Checked Out" || e.status === "Overdue");
-            const checkedInLog = log.filter(e => e.status === "Checked In");
+        // --- Firebase Initialization ---
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
 
-            // The rendering functions are mostly the same, just get their data from arguments
-            renderActiveAndCheckedInTables(activeLog, checkedInLog);
+        // --- HELPER FUNCTIONS (No changes needed here) ---
+        const resultDiv = document.getElementById('form-result');
+        const showResult = (message, type, duration = 6000) => {
+            resultDiv.style.display = 'block'; resultDiv.className = `alert alert-${type}`; resultDiv.textContent = message;
+            setTimeout(() => { resultDiv.style.display = 'none'; }, duration);
+        };
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; const φ1 = lat1 * Math.PI/180; const φ2 = lat2 * Math.PI/180;
+            const Δφ = (lat2-lat1) * Math.PI/180; const Δλ = (lon2-lon1) * Math.PI/180;
+            const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) + Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); return R * c;
         }
 
-        // --- CHECK-IN / CHECK-OUT (MODIFIED FOR FIREBASE) ---
-        // The `performGeoCheckedAction` function stays the same. The callbacks change.
+        // --- GEOLOCATION & VIOLATION LOGGING ---
+        function performGeoCheckedAction(successCallback, studentName, actionType) {
+            showResult("Verifying your location...", "info");
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const distance = calculateDistance(SCHOOLHOUSE_LAT, SCHOOLHOUSE_LON, position.coords.latitude, position.coords.longitude);
+                    if (distance <= ALLOWED_RADIUS_METERS) { successCallback(); } 
+                    else { showResult(`Action Failed: Must be within ${ALLOWED_RADIUS_METERS}m of the schoolhouse.`, "danger"); logGeoViolation(studentName, actionType); }
+                },
+                () => { showResult("Unable to get your location. Please enable location services.", "warning"); }
+            );
+        }
+
+        function logGeoViolation(studentName, action) {
+            const violation = { name: studentName, action: action, timestamp: new Date().toISOString() };
+            db.collection("geoViolations").add(violation).catch(err => console.error("Error logging violation:", err));
+        }
+
+        // --- FORM HANDLERS (Now use Firestore) ---
         document.getElementById('libertyForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            // ... (validation is the same)
+            e.preventDefault(); if (!e.target.checkValidity()) { e.target.classList.add('was-validated'); return; }
             const studentName = document.getElementById('studentName').value;
             performGeoCheckedAction(() => {
                 const newEntry = { ...Object.fromEntries(new FormData(e.target).entries()) };
-                newEntry.status = "Checked Out";
-                newEntry.checkoutTime = new Date().toISOString();
-                
-                // ADD to Firestore database instead of localStorage
+                newEntry.status = "Checked Out"; newEntry.checkoutTime = new Date().toISOString();
                 db.collection("libertyLog").add(newEntry)
-                    .then(() => {
-                        showResult('Success! You are checked out.', 'success');
-                        e.target.reset();
-                    })
+                    .then(() => { showResult('Success! You are checked out.', 'success'); e.target.reset(); })
                     .catch(err => showResult(`Error: ${err.message}`, 'danger'));
             }, studentName, "Check-Out");
         });
+
+        document.getElementById('checkinForm').addEventListener('submit', (e) => {
+            e.preventDefault(); const studentName = document.getElementById('studentNameCheckin').value;
+            if (!studentName) { showResult("Please enter your name.", "warning"); return; }
+            performGeoCheckedAction(async () => {
+                const query = db.collection("libertyLog")
+                    .where("student_name", "==", studentName)
+                    .where("status", "in", ["Checked Out", "Overdue"]);
+                
+                const querySnapshot = await query.get();
+                if (querySnapshot.empty) {
+                    showResult("No active liberty session found for this name.", "danger");
+                } else {
+                    const docId = querySnapshot.docs[0].id;
+                    db.collection("libertyLog").doc(docId).update({ status: "Checked In", checkinTime: new Date().toISOString() })
+                        .then(() => { showResult(`Welcome back, ${studentName}. You are checked in.`, 'success'); e.target.reset(); })
+                        .catch(err => showResult(`Error: ${err.message}`, 'danger'));
+                }
+            }, studentName, "Check-In");
+        });
+
+        document.getElementById('emergencyForm').addEventListener('submit', (e) => {
+            e.preventDefault(); const name = document.getElementById('emergencyName').value; const message = document.getElementById('emergencyMessage').value;
+            if (!name) { showResult("Please enter your name.", "warning"); return; }
+            showResult("Getting location for emergency alert...", "info");
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const newAlert = { name: name, message: message, lat: position.coords.latitude, lon: position.coords.longitude, timestamp: new Date().toISOString() };
+                    db.collection("emergencyAlerts").add(newAlert)
+                        .then(() => {
+                            sendEmergencyEmail(newAlert);
+                            showResult("ALERT SENT! Command has been notified.", "danger", 10000);
+                            e.target.reset();
+                        });
+                },
+                () => { showResult("Could not get location. ALERT NOT SENT. Call the CDO directly!", "danger", 10000); }
+            );
+        });
+
+        async function sendEmergencyEmail(alertData) {
+            const mapLink = `https://www.google.com/maps?q=${alertData.lat},${alertData.lon}`;
+            const payload = { access_key: accessKey, subject: `** URGENT - EMERGENCY ALERT from ${alertData.name} **`, from_name: "NTTC Lackland Alert System",
+                message: `An emergency alert was triggered.<br><br><strong>Name:</strong> ${alertData.name}<br><strong>Time:</strong> ${new Date(alertData.timestamp).toLocaleString()}<br><strong>Message:</strong> ${alertData.message || "No message provided."}<br><strong>Location:</strong> <a href="${mapLink}">${mapLink}</a>`};
+            try { await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }); }
+            catch (error) { console.error("Failed to send emergency email:", error); }
+        }
+
+        // --- COMMAND STAFF DASHBOARD ---
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (document.getElementById('password').value === 'NTTCLACKLAND') {
+                document.getElementById('staffLogin').style.display = 'none'; document.getElementById('staffContent').style.display = 'block';
+                startDashboard();
+            }
+        });
         
-        // And so on for check-in, geo-violations, and emergency alerts.
-        // Every `saveLog` is replaced with a `db.collection(...).add()` or `.update()`
-        // Every `getLog` is replaced by the live `onSnapshot` listener in `startDashboard`.
+        function startDashboard() {
+            db.collection("libertyLog").onSnapshot(snapshot => {
+                const log = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                updateOverdueStatus(log);
+                const activeLog = log.filter(e => e.status === "Checked Out" || e.status === "Overdue");
+                const checkedInLog = log.filter(e => e.status === "Checked In");
+                renderActiveAndCheckedInTables(activeLog, checkedInLog);
+            });
+            db.collection("geoViolations").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+                 renderGeoViolations(snapshot.docs.map(doc => doc.data()));
+            });
+            db.collection("emergencyAlerts").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+                renderEmergencyAlerts(snapshot.docs.map(doc => doc.data()));
+            });
+        }
+        
+        function getCurfewForEntry(phase, checkoutDate) {
+            const curfewHour = curfews[phase] || 22; const curfew = new Date(checkoutDate);
+            curfew.setHours(Math.floor(curfewHour), (curfewHour % 1) * 60, 0, 0);
+            if (curfew < checkoutDate) curfew.setDate(curfew.getDate() + 1); return curfew;
+        }
 
-        // --- IMPORTANT: This is a simplified representation. A full conversion requires
-        // --- updating every function that touches `localStorage` to use Firestore instead.
-        // --- The logic remains the same, only the data storage mechanism changes.
+        function updateOverdueStatus(log) {
+            const now = new Date();
+            log.forEach(entry => {
+                if (entry.status === "Checked Out") {
+                    const curfew = getCurfewForEntry(entry.liberty_phase, new Date(entry.checkoutTime));
+                    if (now > curfew) { db.collection("libertyLog").doc(entry.id).update({ status: "Overdue" }); }
+                }
+            });
+        }
 
+        function renderEmergencyAlerts(alerts) {
+            document.getElementById('emergencyLogBody').innerHTML = alerts.map(a => `<tr class="status-emergency"><td>${new Date(a.timestamp).toLocaleString()}</td><td>${a.name}</td><td>${a.message || 'N/A'}</td><td><a href="https://www.google.com/maps?q=${a.lat},${a.lon}" target="_blank" class="btn btn-sm btn-light">Open Map</a></td></tr>`).join('');
+        }
+
+        function renderGeoViolations(violations) {
+            document.getElementById('geoViolationLogBody').innerHTML = violations.map(v => `<tr class="log-violation"><td>${new Date(v.timestamp).toLocaleString()}</td><td>${v.name}</td><td>${v.action}</td></tr>`).join('');
+        }
+        
+        function renderActiveAndCheckedInTables(activeLog, checkedInLog) {
+            activeLog.sort((a,b) => (a.status === 'Overdue' ? -1 : 1) - (b.status === 'Overdue' ? -1 : 1));
+            document.getElementById('libertyLogBody').innerHTML = activeLog.map(entry => {
+                const curfew = getCurfewForEntry(entry.liberty_phase, new Date(entry.checkoutTime));
+                return `<tr class="${entry.status === 'Overdue' ? 'status-overdue' : ''}"><td>${entry.status.toUpperCase()}</td><td>${entry.student_name}</td><td>${new Date(entry.checkoutTime).toLocaleTimeString()}</td><td>${curfew.toLocaleTimeString()}</td><td><button class="btn btn-sm btn-success" onclick="checkInStudent('${entry.id}')">CheckIn</button></td></tr>`;
+            }).join('');
+            
+            checkedInLog.sort((a,b) => new Date(b.checkinTime) - new Date(a.checkinTime));
+            document.getElementById('checkedInLogBody').innerHTML = checkedInLog.map(entry => `<tr><td>${entry.student_name}</td><td>${new Date(entry.checkoutTime).toLocaleTimeString()}</td><td>${new Date(entry.checkinTime).toLocaleTimeString()}</td></tr>`).join('');
+            
+            document.getElementById('onLibertyCount').textContent = activeLog.length; document.getElementById('overdueCount').textContent = activeLog.filter(e => e.status === 'Overdue').length;
+        }
+
+        window.checkInStudent = (id) => {
+            db.collection("libertyLog").doc(id).update({ status: "Checked In", checkinTime: new Date().toISOString() });
+        };
     });
-    // All other helper functions (calculateDistance, showResult, getCurfew, render tables, etc.)
-    // remain EXACTLY the same.
     </script>
 </body>
 </html>
