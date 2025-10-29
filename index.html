@@ -1,210 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTTC Lackland Secure Portal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>:root{--navy-blue:#001f3f;--darker-blue:#001224;--navy-gold:#FFD700;--light-gray:#c0c0c0;--danger-red:#dc3545;--emergency-red:#b30000}body{font-family:'Roboto',sans-serif;background-color:var(--darker-blue);color:var(--light-gray);padding-bottom:50px}.main-title{font-family:'Orbitron',sans-serif;color:var(--navy-gold)}.nav-tabs .nav-link{font-family:'Orbitron',sans-serif;background:transparent;border:1px solid var(--navy-blue);color:var(--light-gray)}.nav-tabs .nav-link.active{background-color:var(--navy-blue);color:var(--navy-gold);border-color:var(--navy-gold)}.tab-content{background-color:rgba(0,31,63,.9);border:1px solid var(--navy-gold);border-top:none;padding:2rem}.form-control,.form-select{background-color:var(--darker-blue);color:#fff;border:1px solid var(--light-gray)}.form-label{color:var(--navy-gold)}.btn-primary{background-color:var(--navy-gold);border-color:var(--navy-gold);color:var(--navy-blue);font-weight:700}.auth-container{max-width:500px;margin:auto}.nested-nav .nav-link.active{background-color:var(--navy-blue);color:var(--navy-gold);border-color:var(--navy-gold)}.status-overdue{background-color:#5d1c21!important;color:#fff!important;font-weight:700}.status-emergency{background-color:var(--emergency-red)!important;color:#fff!important;font-weight:700;animation:pulse 1.5s infinite}@keyframes pulse{0%{background-color:var(--emergency-red)}50%{background-color:#ff4d4d}100%{background-color:var(--emergency-red)}}</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NTTC Lackland Liberty Portal</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root { --navy-blue: #001f3f; --darker-blue: #001224; --navy-gold: #FFD700; --light-gray: #c0c0c0; --danger-red: #dc3545; --emergency-red: #b30000; }
+body { font-family: 'Roboto', sans-serif; background-color: var(--darker-blue); color: var(--light-gray); padding-bottom: 50px; }
+.main-title { font-family: 'Orbitron', sans-serif; color: var(--navy-gold); text-shadow: 2px 2px 4px rgba(0,0,0,0.7); }
+.nav-tabs .nav-link { font-family: 'Orbitron', sans-serif; background: transparent; border: 1px solid var(--navy-blue); color: var(--light-gray); }
+.nav-tabs .nav-link.active { background-color: var(--navy-blue); color: var(--navy-gold); border-color: var(--navy-gold); }
+.tab-content { background-color: rgba(0, 31, 63, 0.9); border: 1px solid var(--navy-gold); border-top: none; padding: 2rem; }
+.card, .modal-content, .table, .list-group-item { background-color: var(--navy-blue); border-color: var(--light-gray); color: var(--light-gray); }
+.card-header, .modal-header { background-color: var(--darker-blue); color: var(--navy-gold); font-family: 'Orbitron', sans-serif; border-bottom: 1px solid var(--navy-gold); }
+.form-control, .form-select { background-color: var(--darker-blue); color: white; border: 1px solid var(--light-gray); }
+.form-label { color: var(--navy-gold); }
+.btn-primary { background-color: var(--navy-gold); border-color: var(--navy-gold); color: var(--navy-blue); font-weight: bold; }
+.nested-nav .nav-link.active { background-color: var(--navy-blue); color: var(--navy-gold); border-color: var(--navy-gold); }
+.dashboard-stat { background-color: var(--darker-blue); border: 1px solid var(--navy-gold); }
+.table > thead { color: var(--navy-gold); }
+.status-overdue { background-color: #5d1c21 !important; color: white !important; font-weight: bold; }
+.log-violation { background-color: #664d03 !important; color: white !important; }
+.status-emergency { background-color: var(--emergency-red) !important; color: white !important; font-weight: bold; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0% { background-color: var(--emergency-red); } 50% { background-color: #ff4d4d; } 100% { background-color: var(--emergency-red); } }
+.list-group-item strong { color: var(--navy-gold); }
+</style>
 </head>
 <body>
-    <div class="container my-4">
-        <header class="text-center mb-4"><h1 class="main-title">NTTC Lackland Secure Portal</h1></header>
-        <div id="app-container">
-            <!-- AUTH VIEW (Login/Register) -->
-            <div id="auth-view"><div class="auth-container"><div id="login-form-container"><h4 class="text-white">Student & Staff Login</h4><form id="loginForm"><div class="mb-3"><label for="DODID Login" class="form-label">DODID (DODID)</label><input type="numbers" class="form-control" id="DODID Login" required></div><div class="mb-3"><label for="loginPassword" class="form-label">Password</label><input type="password" class="form-control" id="loginPassword" required></div><button type="submit" class="btn btn-primary w-100">Login</button></form><p class="mt-3 text-center">First time here? <a href="#" id="show-register-link">Create a Student Account</a></p></div><div id="register-form-container" style="display:none;"><h4 class="text-white">Create Student Account</h4><form id="registerForm"><div class="mb-3"><label for="registerName" class="form-label">Full Name AND Phone Number (LAST, FIRST, PHONE NUMBER)</label><input type="text" class="form-control" id="registerName" required></div><div class="mb-3"><label for="registerDodid" class="form-label">10-Digit DODID Number</label><input type="text" class="form-control" id="registerDodid" required pattern="\d{10}" title="Must be 10 digits"></div><div class="mb-3"><label for="registerPassword" class="form-label">Create Password</label><input type="password" class="form-control" id="registerPassword" required minlength="6"></div><hr class="border-warning"><div class="mb-3"><label for="registerClass" class="form-label">Class Number</label><input type="text" class="form-control" id="registerClass" required></div><div class="mb-3"><label for="registerCommander" class="form-label">Class Commander (Rank & Name)</label><input type="text" class="form-control" id="registerCommander" required></div><div class="mb-3"><label for="registerEmergencyContact" class="form-label">Emergency Contact (Name & Phone)</label><input type="text" class="form-control" id="registerEmergencyContact" required></div><button type="submit" class="btn btn-primary w-100">Create Account</button></form><p class="mt-3 text-center">Already have an account? <a href="#" id="show-login-link">Login here</a></p></div></div></div>
-            
-            <!-- PORTAL VIEW (Main Application) -->
-            <div id="portal-view" style="display:none;">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <p class="mb-0">Welcome, <strong id="user-display-name">User</strong> (<span id="user-role">Role</span>)</p>
-                    <button id="logout-button" class="btn btn-sm btn-outline-warning">Logout</button>
-                </div>
-
-                <!-- STUDENT PORTAL UI -->
-                <div id="student-portal-ui" style="display:none;">
-                    <ul class="nav nav-pills mb-3 nested-nav" id="studentPills" role="tablist"><li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#liberty-actions-content">Liberty Actions</button></li><li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#emergency-alert-content">Emergency Alert</button></li></ul>
-                    <div class="tab-content"><div class="tab-pane fade show active" id="liberty-actions-content"><div id="liberty-status-display" class="alert alert-info">Fetching liberty status...</div><div id="checkout-form-container"><hr><h4>Liberty Check-Out</h4><p>On-site location will be verified.</p><form id="libertyForm"><div class="row g-3"><div class="col-md-6"><label class="form-label">Liberty Phase</label><p class="form-control-plaintext" id="checkout-phase">...</p></div><div class="col-md-6"><label for="libertyBuddy" class="form-label">Liberty Buddy</label><input type="text" class="form-control" id="libertyBuddy" required></div><div class="col-12"><label for="destination" class="form-label">Destination</label><input type="text" class="form-control" id="destination" required></div></div><button class="btn btn-primary btn-lg mt-4" type="submit">Verify Location & Check Out</button></form></div><div id="checkin-button-container" style="display:none;"><hr><button id="checkin-button" class="btn btn-primary btn-lg">Verify Location & Check In</button></div></div><div class="tab-pane fade" id="emergency-alert-content"><h3 class="text-danger">Emergency Alert System</h3><p class="text-warning"><strong>USE ONLY FOR A GENUINE EMERGENCY.</strong></p><form id="emergencyForm"><div class="mb-3"><label for="emergencyMessage" class="form-label">Brief Message (Optional)</label><textarea class="form-control" id="emergencyMessage" rows="2"></textarea></div><button type="submit" class="btn btn-danger btn-lg w-100">SEND EMERGENCY ALERT NOW</button></form></div></div>
-                </div>
-
-                <!-- STAFF PORTAL UI -->
-                <div id="staff-portal-ui" style="display:none;">
-                    <ul class="nav nav-tabs" id="mainStaffTab" role="tablist"><li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#staff-dashboard-content">Live Dashboard</button></li><li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#staff-management-content">Student Management</button></li><li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#staff-recall-content">Total Recall</button></li></ul>
-                    <div class="tab-content"><div class="tab-pane fade show active" id="staff-dashboard-content"><h5 class="mt-4 text-danger">EMERGENCY ALERTS</h5><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Time</th><th>Name</th><th>Message</th><th>Location</th></tr></thead><tbody id="emergencyLogBody"></tbody></table></div><div class="row text-center my-4"><div class="col-md-6"><div class="p-3"><h6>On Liberty</h6><h2 id="onLibertyCount" class="display-4">0</h2></div></div><div class="col-md-6"><div class="p-3"><h6>Overdue</h6><h2 id="overdueCount" class="display-4 text-danger">0</h2></div></div></div><h5 class="mt-4">Active Liberty Log</h5><div class="table-responsive"><table class="table table-hover table-sm"><thead><tr><th>Status</th><th>Name</th><th>Out</th><th>Curfew</th><th>Phase</th><th>Buddy</th></tr></thead><tbody id="libertyLogBody"></tbody></table></div></div><div class="tab-pane fade" id="staff-management-content"><h4>Student Profiles</h4><input type="text" id="student-search-bar" class="form-control mb-3" placeholder="Search by name or DODID..."><div class="table-responsive"><table class="table"><thead><tr><th>Name</th><th>DODID</th><th>Class</th><th>Liberty Phase</th><th>Actions</th></tr></thead><tbody id="student-list-body"></tbody></table></div></div><div class="tab-pane fade" id="staff-recall-content"><h4 class="text-warning">Initiate Total Recall</h4><p>This will call a Cloud Function to message all students currently on liberty. This action will be logged.</p><form id="recall-form"><div class="mb-3"><label for="recall-message" class="form-label">Recall Message</label><textarea id="recall-message" class="form-control" required>All hands, total recall in effect. Return to base immediately. Acknowledge receipt.</textarea></div><button type="submit" class="btn btn-danger w-100">CONFIRM AND INITIATE RECALL</button></form></div></div>
-                </div>
-            </div>
-        </div>
-        <div id="form-result" class="alert mt-3" role="alert" style="display:none;"></div>
-    </div>
-
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-functions-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // --- CONFIGURATION (FILL THIS OUT) ---
-        const firebaseConfig = { 
+<div class="container my-4">
+<header class="text-center mb-4"><h1 class="main-title">NTTC Lackland Liberty Portal</h1><p class="sub-title">Naval Security Force Training - Semper Fortis (Always Courageous)</p></header>
+<ul class="nav nav-tabs" id="mainTab" role="tablist">
+<li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#student-portal" type="button">Student Portal</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#staff-portal-wrapper" type="button">Command Staff</button></li>
+</ul>
+<div class="tab-content" id="mainTabContent">
+<!-- Student Portal HTML (same as before) -->
+<div class="tab-pane fade show active" id="student-portal" role="tabpanel">
+<ul class="nav nav-pills mb-3 nested-nav" id="studentPills" role="tablist">
+<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#emergency-alert-content" type="button">EMERGENCY ALERT</button></li>
+<li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#liberty-checkout-content" type="button">Liberty Check-Out</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#liberty-checkin-content" type="button">Liberty Check-In</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#info-content" type="button">Important Info</button></li>
+</ul>
+<div class="tab-content" id="studentPillsContent">
+<div class="tab-pane fade" id="emergency-alert-content" role="tabpanel">
+<h3 class="text-danger">Emergency Alert System</h3>
+<p class="text-warning"><strong>USE ONLY FOR A GENUINE EMERGENCY.</strong> This immediately sends your name and location to the Command.</p>
+<form id="emergencyForm">
+<div class="col-md-6 mb-3"><label for="emergencyName" class="form-label">Your Full Name (LAST, FIRST)</label><input type="text" class="form-control" id="emergencyName" required></div>
+<div class="mb-3"><label for="emergencyMessage" class="form-label">Brief Message (Optional)</label><textarea class="form-control" id="emergencyMessage" rows="2"></textarea></div>
+<button type="submit" class="btn btn-danger btn-lg w-100">SEND EMERGENCY ALERT NOW</button>
+</form>
+</div>
+<div class="tab-pane fade show active" id="liberty-checkout-content" role="tabpanel">
+<h4>Liberty Check-Out</h4><p>On-site location will be verified.</p>
+<form id="libertyForm" class="needs-validation" novalidate><div class="row g-3"><div class="col-md-6"><label for="studentName" class="form-label">Name (LAST, FIRST)</label><input type="text" class="form-control" id="studentName" name="student_name" required></div><div class="col-md-6"><label for="libertyPhase" class="form-label">Liberty Phase</label><select class="form-select" id="libertyPhase" name="liberty_phase" required><option value="" selected disabled>Select...</option><option value="1">Phase I</option><option value="2">Phase II</option><option value="3">Phase III</option></select></div><div class="col-md-6"><label for="libertyBuddy" class="form-label">Liberty Buddy</label><input type="text" class="form-control" id="libertyBuddy" name="liberty_buddy" required></div><div class="col-md-6"><label for="studentPhone" class="form-label">Your Phone</label><input type="tel" class="form-control" id="studentPhone" name="student_phone" required></div><div class="col-12"><label for="destination" class="form-label">Destination</label><input type="text" class="form-control" id="destination" name="destination" required></div></div><hr class="my-4"><div class="form-check"><input type="checkbox" class="form-check-input" id="policyAck" required><label class="form-check-label" for="policyAck">I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#libertyPolicyModal">Liberty Policy</a>.</label></div><button class="btn btn-primary btn-lg mt-4" type="submit">Verify Location & Check Out</button></form>
+</div>
+<div class="tab-pane fade" id="liberty-checkin-content" role="tabpanel">
+<h4>Liberty Check-In</h4><p>On-site location will be verified.</p>
+<form id="checkinForm"><div class="col-md-6 mb-3"><label for="studentNameCheckin" class="form-label">Name (LAST, FIRST)</label><input type="text" class="form-control" id="studentNameCheckin" required></div><button class="btn btn-primary btn-lg" type="submit">Verify Location & Check In</button></form>
+</div>
+<div class="tab-pane fade" id="info-content" role="tabpanel">
+<h4>Important Information & Contacts</h4>
+<div class="card"><div class="card-header">Emergency Contacts</div><ul class="list-group list-group-flush"><li class="list-group-item"><strong>NTTC Lackland Command Duty Officer (CDO):</strong> (210) 555-1234</li><li class="list-group-item"><strong>JBSA-Lackland Security Forces:</strong> (210) 671-2018</li><li class="list-group-item"><strong>SAPR 24/7 Hotline:</strong> (210) 808-7272</li><li class="list-group-item"><strong>Duty Chaplain:</strong> (210) 555-9012</li><li class="list-group-item"><strong>Suicide & Crisis Lifeline:</strong> Dial 988</li></ul></div>
+</div>
+</div>
+</div>
+<!-- Staff Portal HTML (same as before) -->
+<div class="tab-pane fade" id="staff-portal-wrapper" role="tabpanel">
+<div id="staffLogin">
+<h4>Staff Authentication Required</h4><form id="loginForm"><div class="mb-3"><label for="password" class="form-label">Password</label><input type="password" class="form-control" id="password"></div><button type="submit" class="btn btn-primary">Access Dashboard</button></form>
+</div>
+<div id="staffContent" style="display: none;">
+<h4 class="main-title">Live Student Accountability Dashboard</h4>
+<h5 class="mt-4 text-danger">EMERGENCY ALERTS</h5><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Time</th><th>Name</th><th>Message</th><th>Location</th></tr></thead><tbody id="emergencyLogBody"></tbody></table></div>
+<div class="row text-center my-4"><div class="col-md-6"><div class="p-3 dashboard-stat"><h6>On Liberty</h6><h2 id="onLibertyCount" class="display-4">0</h2></div></div><div class="col-md-6"><div class="p-3 dashboard-stat"><h6>Overdue</h6><h2 id="overdueCount" class="display-4 text-danger">0</h2></div></div></div>
+<h5 class="mt-4">Active Liberty Log</h5><div class="table-responsive"><table class="table table-hover table-sm"><thead><tr><th>Status</th><th>Name</th><th>Out</th><th>Curfew</th><th>Action</th></tr></thead><tbody id="libertyLogBody"></tbody></table></div>
+<h5 class="mt-5">Out-of-Vicinity Attempt Log</h5><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Time</th><th>Name</th><th>Attempted Action</th></tr></thead><tbody id="geoViolationLogBody"></tbody></table></div>
+<h5 class="mt-5">Today's Checked-In Log</h5><div class="table-responsive"><table class="table table-sm"><thead><tr><th>Name</th><th>Out</th><th>In</th></tr></thead><tbody id="checkedInLogBody"></tbody></table></div>
+</div>
+</div>
+</div>
+<div id="form-result" class="alert mt-3" role="alert" style="display:none;"></div>
+</div>
+<div class="modal fade" id="libertyPolicyModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">NTTC Lackland Liberty Portal</h5></div><div class="modal-body"><p>Liberty is a privilege. All policies remain in effect. Failure to abide will result in disciplinary action.</p></div></div></div></div>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+// --- ⬇️ 1. PASTE YOUR FIREBASE CONFIG HERE ⬇️ ---
+const firebaseConfig = {
 	  apiKey: "AIzaSyAIJRAXU9N_rPcWEyfpihC79XIzMhdpYEA",
           authDomain: "nttc-accountability-portal.firebaseapp.com",
           projectId: "nttc-accountability-portal",
           storageBucket: "nttc-accountability-portal.firebasestorage.app",
           messagingSenderId: "276392966927",
           appId: "1:276392966927:web:3b77418cef82869a079c7a",
-          measurementId: "G-6L9DEBGEXF" 
-	};
-        const accessKey = "YOUR_WEB3FORMS_KEY"; // For emergency emails
-        const SCHOOLHOUSE_LAT = 29.39769; // Your building's Latitude
-        const SCHOOLHOUSE_LON = -98.62683; // Your building's Longitude
-        const ALLOWED_RADIUS_METERS = 305;
-        const curfews = { "1": 22, "2": 23, "3": 23.99 };
-
-        // --- Initialize Firebase ---
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-        const functions = firebase.functions();
-
-        // --- Global State ---
-        let currentUser = null;
-        let currentUserProfile = null;
-
-        // --- DOM Elements ---
-        const authView = document.getElementById('auth-view');
-        const portalView = document.getElementById('portal-view');
-        const studentPortalUI = document.getElementById('student-portal-ui');
-        const staffPortalUI = document.getElementById('staff-portal-ui');
-        const resultDiv = document.getElementById('form-result');
-        const userDisplayName = document.getElementById('user-display-name');
-        const userRole = document.getElementById('user-role');
-        const libertyStatusDisplay = document.getElementById('liberty-status-display');
-        const checkoutFormContainer = document.getElementById('checkout-form-container');
-        const checkinButtonContainer = document.getElementById('checkin-button-container');
-
-        // --- UI Toggles ---
-        document.getElementById('show-register-link').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('login-form-container').style.display = 'none'; document.getElementById('register-form-container').style.display = 'block'; });
-        document.getElementById('show-login-link').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('register-form-container').style.display = 'none'; document.getElementById('login-form-container').style.display = 'block'; });
-
-        // --- Helper ---
-        const showResult = (message, type) => { resultDiv.style.display = 'block'; resultDiv.className = `alert alert-${type}`; resultDiv.textContent = message; setTimeout(() => { resultDiv.style.display = 'none'; }, 6000); };
-        function calculateDistance(lat1,lon1,lat2,lon2){const R=6371e3,φ1=lat1*Math.PI/180,φ2=lat2*Math.PI/180,Δφ=(lat2-lat1)*Math.PI/180,Δλ=(lon2-lon1)*Math.PI/180,a=Math.sin(Δφ/2)*Math.sin(Δφ/2)+Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)*Math.sin(Δλ/2),c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));return R*c}
-        function performGeoCheckedAction(successCallback){showResult("Verifying location...","info");navigator.geolocation.getCurrentPosition(pos=>{const dist=calculateDistance(SCHOOLHOUSE_LAT,SCHOOLHOUSE_LON,pos.coords.latitude,pos.coords.longitude);if(dist<=ALLOWED_RADIUS_METERS){successCallback()}else{showResult(`Action Failed: Must be within ${ALLOWED_RADIUS_METERS}m of the schoolhouse.`,"danger");db.collection("geoViolations").add({name:currentUserProfile.fullName,timestamp:new Date().toISOString()})}},()=>{showResult("Unable to get location. Enable location services.","warning")})}
-
-        // --- AUTHENTICATION ---
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                currentUser = user;
-                db.collection('users').doc(user.uid).onSnapshot(doc => {
-                    if (doc.exists) {
-                        currentUserProfile = { uid: user.uid, ...doc.data() };
-                        userDisplayName.textContent = currentUserProfile.fullName;
-                        userRole.textContent = currentUserProfile.role;
-                        authView.style.display = 'none';
-                        portalView.style.display = 'block';
-                        if (currentUserProfile.role === 'staff') {
-                            staffPortalUI.style.display = 'block';
-                            studentPortalUI.style.display = 'none';
-                            startStaffDashboard();
-                        } else {
-                            studentPortalUI.style.display = 'block';
-                            staffPortalUI.style.display = 'none';
-                            startStudentDashboard();
-                        }
-                    } else { auth.signOut(); } // Profile doesn't exist, sign out
-                });
-            } else {
-                currentUser = null; currentUserProfile = null;
-                authView.style.display = 'block';
-                portalView.style.display = 'none';
-            }
-        });
-        document.getElementById('logout-button').addEventListener('click', () => auth.signOut());
-        document.getElementById('registerForm').addEventListener('submit',e=>{e.preventDefault();const fullName=document.getElementById('registerName').value,dodid=document.getElementById('registerDodid').value,password=document.getElementById('registerPassword').value,email=`${dodid}@us.navy.mil`,classNumber=document.getElementById('registerClass').value,commander=document.getElementById('registerCommander').value,emergencyContact=document.getElementById('registerEmergencyContact').value;auth.createUserWithEmailAndPassword(email,password).then(cred=>{return db.collection('users').doc(cred.user.uid).set({fullName:fullName,dodid:dodid,email:email,classNumber:classNumber,commander:commander,emergencyContact:emergencyContact,libertyPhase:1,checkinDate:new Date().toISOString(),role:'student'})}).then(()=>{showResult('Account created! You are logged in.','success')}).catch(err=>{showResult(`Error: ${err.message}`,'danger')})});
-        document.getElementById('loginForm').addEventListener('submit', e => { e.preventDefault(); auth.signInWithEmailAndPassword(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value).catch(err => showResult(`Error: ${err.message}`, 'danger')); });
-
-        // --- STUDENT PORTAL LOGIC ---
-        let activeLibertyDoc = null;
-        function startStudentDashboard() {
-            document.getElementById('checkout-phase').textContent = currentUserProfile.libertyPhase;
-            // Listen for changes to THIS student's liberty status
-            db.collection('libertyLog').where('uid', '==', currentUser.uid).where('status', 'in', ['Checked Out', 'Overdue']).onSnapshot(snapshot => {
-                if (snapshot.empty) {
-                    activeLibertyDoc = null;
-                    libertyStatusDisplay.className = 'alert alert-success';
-                    libertyStatusDisplay.textContent = 'You are currently checked in.';
-                    checkoutFormContainer.style.display = 'block';
-                    checkinButtonContainer.style.display = 'none';
-                } else {
-                    activeLibertyDoc = snapshot.docs[0].data();
-                    activeLibertyDoc.id = snapshot.docs[0].id;
-                    libertyStatusDisplay.className = 'alert alert-warning';
-                    libertyStatusDisplay.textContent = `You are ON LIBERTY, checked out at ${new Date(activeLibertyDoc.checkoutTime).toLocaleTimeString()}.`;
-                    checkoutFormContainer.style.display = 'none';
-                    checkinButtonContainer.style.display = 'block';
-                }
-            });
-        }
-        document.getElementById('libertyForm').addEventListener('submit',e=>{e.preventDefault();performGeoCheckedAction(()=>{const newEntry={uid:currentUser.uid,fullName:currentUserProfile.fullName,libertyPhase:currentUserProfile.libertyPhase,libertyBuddy:document.getElementById('libertyBuddy').value,destination:document.getElementById('destination').value,status:"Checked Out",checkoutTime:new Date().toISOString()};db.collection("libertyLog").add(newEntry).then(()=>showResult('Success! You are checked out.','success')).catch(err=>showResult(err.message,'danger'))})});
-        document.getElementById('checkin-button').addEventListener('click',()=>{performGeoCheckedAction(()=>{if(activeLibertyDoc){db.collection('libertyLog').doc(activeLibertyDoc.id).update({status:'Checked In',checkinTime:new Date().toISOString()}).then(()=>showResult('Welcome back! You are checked in.','success')).catch(err=>showResult(err.message,'danger'))}})});
-        document.getElementById('emergencyForm').addEventListener('submit',e=>{e.preventDefault();const message=document.getElementById('emergencyMessage').value;navigator.geolocation.getCurrentPosition(pos=>{const newAlert={uid:currentUser.uid,name:currentUserProfile.fullName,message:message,lat:pos.coords.latitude,lon:pos.coords.longitude,timestamp:new Date().toISOString()};db.collection("emergencyAlerts").add(newAlert).then(()=>{/* Email sending is now a Cloud Function */showResult("ALERT SENT! Command has been notified.","danger")})},()=>{showResult("Could not get location. ALERT NOT SENT. Call CDO directly!","danger")})});
-
-        // --- STAFF PORTAL LOGIC ---
-        function startStaffDashboard() {
-            // Live listeners for all logs
-            db.collection("emergencyAlerts").orderBy("timestamp", "desc").onSnapshot(snap => renderEmergencyAlerts(snap.docs.map(d=>d.data())));
-            db.collection("libertyLog").onSnapshot(snap => {
-                const log = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                const activeLog = log.filter(e => e.status === "Checked Out" || e.status === "Overdue");
-                const checkedInLog = log.filter(e => e.status === "Checked In");
-                renderActiveAndCheckedInTables(activeLog, checkedInLog);
-            });
-            // Initial load of student list for management
-            loadAndRenderStudentList();
-        }
-        function getCurfew(phase,checkoutDate){const h=curfews[phase]||22,c=new Date(checkoutDate);c.setHours(Math.floor(h),(h%1)*60,0,0);if(c<checkoutDate)c.setDate(c.getDate()+1);return c}
-        function renderEmergencyAlerts(alerts){document.getElementById('emergencyLogBody').innerHTML=alerts.map(a=>`<tr class="status-emergency"><td>${new Date(a.timestamp).toLocaleString()}</td><td>${a.name}</td><td>${a.message||'N/A'}</td><td><a href="https://www.google.com/maps?q=${a.lat},${a.lon}" target="_blank" class="btn btn-sm btn-light">Map</a></td></tr>`).join('')}
-        function renderActiveAndCheckedInTables(active,checkedIn){document.getElementById('libertyLogBody').innerHTML=active.sort((a,b)=>(a.status==='Overdue'?-1:1)-(b.status==='Overdue'?-1:1)).map(e=>{const curfew=getCurfew(e.libertyPhase,new Date(e.checkoutTime));return`<tr class="${e.status==='Overdue'?'status-overdue':''}"><td>${e.status.toUpperCase()}</td><td>${e.fullName}</td><td>${new Date(e.checkoutTime).toLocaleTimeString()}</td><td>${curfew.toLocaleTimeString()}</td><td>${e.libertyPhase}</td><td>${e.libertyBuddy}</td></tr>`}).join('');document.getElementById('onLibertyCount').textContent=active.length;document.getElementById('overdueCount').textContent=active.filter(e=>e.status==='Overdue').length}
-        
-        // Student Management
-        function loadAndRenderStudentList() {
-            db.collection('users').where('role', '==', 'student').get().then(snapshot => {
-                const students = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                renderStudentList(students);
-            });
-        }
-        function renderStudentList(students) {
-            document.getElementById('student-list-body').innerHTML = students.map(s => `<tr><td>${s.fullName}</td><td>${s.dodid}</td><td>${s.classNumber}</td><td><select class="form-select form-select-sm" onchange="updatePhase('${s.id}', this.value)"><option value="1" ${s.libertyPhase==1?'selected':''}>I</option><option value="2" ${s.libertyPhase==2?'selected':''}>II</option><option value="3" ${s.libertyPhase==3?'selected':''}>III</option></select></td><td><button class="btn btn-sm btn-outline-warning" onclick="resetPassword('${s.email}')">Reset Pwd</button></td></tr>`).join('');
-        }
-        window.updatePhase = (uid, phase) => {
-            db.collection('users').doc(uid).update({ libertyPhase: parseInt(phase) })
-                .then(() => showResult('Phase updated.', 'success'))
-                .catch(err => showResult(err.message, 'danger'));
-        };
-        window.resetPassword = (email) => {
-            if (confirm(`Send password reset link to ${email}?`)) {
-                auth.sendPasswordResetEmail(email)
-                    .then(() => showResult('Password reset email sent.', 'success'))
-                    .catch(err => showResult(err.message, 'danger'));
-            }
-        };
-
-        // Recall Function
-        document.getElementById('recall-form').addEventListener('submit', e => {
-            e.preventDefault();
-            const message = document.getElementById('recall-message').value;
-            if (confirm('Are you sure you want to initiate a total recall?')) {
-                const triggerRecall = functions.httpsCallable('triggerTotalRecall');
-                showResult('Initiating recall...', 'info');
-                triggerRecall({ message: message })
-                    .then(result => showResult(result.data.message, 'success'))
-                    .catch(err => showResult(err.message, 'danger'));
-            }
-        });
-    });
-    </script>
+          measurementId: "G-6L9DEBGEXF"
+};
+// --- ⬇️ 2. PASTE YOUR WEB3FORMS KEY HERE ⬇️ ---
+const accessKey = "YOUR_WEB3FORMS_KEY_HERE";
+// --- ⬇️ 3. UPDATE YOUR GPS COORDINATES HERE ⬇️ ---
+const SCHOOLHOUSE_LAT = 29.39769;
+const SCHOOLHOUSE_LON = -98.62683;
+const ALLOWED_RADIUS_METERS = 305;
+const curfews = { "1": 22, "2": 23.98, "3": 23.98 };
+// --- Firebase Initialization ---
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+// --- HELPER FUNCTIONS (No changes needed here) ---
+const resultDiv = document.getElementById('form-result');
+const showResult = (message, type, duration = 6000) => {
+resultDiv.style.display = 'block'; resultDiv.className = `alert alert-${type}`; resultDiv.textContent = message;
+setTimeout(() => { resultDiv.style.display = 'none'; }, duration);
+};
+function calculateDistance(lat1, lon1, lat2, lon2) {
+const R = 6371e3; const φ1 = lat1 _Math.PI/180; const φ2 = lat2_ Math.PI/180;
+const Δφ = (lat2-lat1) _Math.PI/180; const Δλ = (lon2-lon1)_ Math.PI/180;
+const a = Math.sin(Δφ/2) _Math.sin(Δφ/2) + Math.cos(φ1)_ Math.cos(φ2) _Math.sin(Δλ/2)_ Math.sin(Δλ/2);
+const c = 2 _Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); return R_ c;
+}
+// --- GEOLOCATION & VIOLATION LOGGING ---
+function performGeoCheckedAction(successCallback, studentName, actionType) {
+showResult("Verifying your location...", "info");
+navigator.geolocation.getCurrentPosition(
+(position) => {
+const distance = calculateDistance(SCHOOLHOUSE_LAT, SCHOOLHOUSE_LON, position.coords.latitude, position.coords.longitude);
+if (distance <= ALLOWED_RADIUS_METERS) { successCallback(); }
+else { showResult`Action Failed: Must be within ${ALLOWED_RADIUS_METERS}m of the schoolhouse.`, "danger"); logGeoViolation(studentName, actionType); }
+},
+() => { showResult("Unable to get your location. Please enable location services.", "warning"); }
+);
+}
+function logGeoViolation(studentName, action) {
+const violation = { name: studentName, action: action, timestamp: new Date().toISOString() };
+db.collection("geoViolations").add(violation).catch(err => console.error("Error logging violation:", err));
+}
+// --- FORM HANDLERS (Now use Firestore) ---
+document.getElementById('libertyForm').addEventListener('submit', (e) => {
+e.preventDefault(); if (!e.target.checkValidity()) { e.target.classList.add('was-validated'); return; }
+const studentName = document.getElementById('studentName').value;
+performGeoCheckedAction(() => {
+const newEntry = { ...Object.fromEntries(new FormData(e.target).entries()) };
+newEntry.status = "Checked Out"; newEntry.checkoutTime = new Date().toISOString();
+db.collection("libertyLog").add(newEntry)
+.then(() => { showResult('Success! You are checked out.', 'success'); e.target.reset(); })
+.catch(err => showResult`Error: ${err.message}`, 'danger'));
+}, studentName, "Check-Out");
+});
+document.getElementById('checkinForm').addEventListener('submit', (e) => {
+e.preventDefault(); const studentName = document.getElementById('studentNameCheckin').value;
+if (!studentName) { showResult("Please enter your name.", "warning"); return; }
+performGeoCheckedAction(async () => {
+const query = db.collection("libertyLog")
+.where("student_name", "==", studentName)
+.where("status", "in", ["Checked Out", "Overdue"]);
+const querySnapshot = await query.get();
+if (querySnapshot.empty) {
+showResult("No active liberty session found for this name.", "danger");
+} else {
+const docId = querySnapshot.docs[0].id;
+db.collection("libertyLog").doc(docId).update({ status: "Checked In", checkinTime: new Date().toISOString() })
+.then(() => { showResult`Welcome back, ${studentName}. You are checked in.`, 'success'); e.target.reset(); })
+.catch(err => showResult`Error: ${err.message}`, 'danger'));
+}
+}, studentName, "Check-In");
+});
+document.getElementById('emergencyForm').addEventListener('submit', (e) => {
+e.preventDefault(); const name = document.getElementById('emergencyName').value; const message = document.getElementById('emergencyMessage').value;
+if (!name) { showResult("Please enter your name.", "warning"); return; }
+showResult("Getting location for emergency alert...", "info");
+navigator.geolocation.getCurrentPosition(
+(position) => {
+const newAlert = { name: name, message: message, lat: position.coords.latitude, lon: position.coords.longitude, timestamp: new Date().toISOString() };
+db.collection("emergencyAlerts").add(newAlert)
+.then(() => {
+sendEmergencyEmail(newAlert);
+showResult("ALERT SENT! Command has been notified.", "danger", 10000);
+e.target.reset();
+});
+},
+() => { showResult("Could not get location. ALERT NOT SENT. Call the CDO directly!", "danger", 10000); }
+);
+});
+async function sendEmergencyEmail(alertData) {
+const mapLink = `https://www.google.com/maps?q=${alertData.lat},${alertData.lon}`;
+const payload = { access_key: accessKey, subject: `** URGENT - EMERGENCY ALERT from ${alertData.name} **`, from_name: "NTTC Lackland Alert System",
+message: `An emergency alert was triggered.<br><br><strong>Name:</strong> ${alertData.name}<br><strong>Time:</strong> ${new Date(alertData.timestamp).toLocaleString()}<br><strong>Message:</strong> ${alertData.message || "No message provided."}<br><strong>Location:</strong> <a href="${mapLink}">${mapLink}</a>`};
+try { await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }); }
+catch (error) { console.error("Failed to send emergency email:", error); }
+}
+// --- COMMAND STAFF DASHBOARD ---
+document.getElementById('loginForm').addEventListener('submit', (e) => {
+e.preventDefault();
+if (document.getElementById('password').value === 'NTTCLACKLAND') {
+document.getElementById('staffLogin').style.display = 'none'; document.getElementById('staffContent').style.display = 'block';
+startDashboard();
+}
+});
+function startDashboard() {
+db.collection("libertyLog").onSnapshot(snapshot => {
+const log = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+updateOverdueStatus(log);
+const activeLog = log.filter(e => e.status === "Checked Out" || e.status === "Overdue");
+const checkedInLog = log.filter(e => e.status === "Checked In");
+renderActiveAndCheckedInTables(activeLog, checkedInLog);
+});
+db.collection("geoViolations").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+renderGeoViolations(snapshot.docs.map(doc => doc.data()));
+});
+db.collection("emergencyAlerts").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+renderEmergencyAlerts(snapshot.docs.map(doc => doc.data()));
+});
+}
+function getCurfewForEntry(phase, checkoutDate) {
+const curfewHour = curfews[phase] || 22; const curfew = new Date(checkoutDate);
+curfew.setHours(Math.floor(curfewHour), (curfewHour % 1) * 60, 0, 0);
+if (curfew < checkoutDate) curfew.setDate(curfew.getDate() + 1); return curfew;
+}
+function updateOverdueStatus(log) {
+const now = new Date();
+log.forEach(entry => {
+if (entry.status === "Checked Out") {
+const curfew = getCurfewForEntry(entry.liberty_phase, new Date(entry.checkoutTime));
+if (now > curfew) { db.collection("libertyLog").doc(entry.id).update({ status: "Overdue" }); }
+}
+});
+}
+function renderEmergencyAlerts(alerts) {
+document.getElementById('emergencyLogBody').innerHTML = alerts.map(a => `<tr class="status-emergency"><td>${new Date(a.timestamp).toLocaleString()}</td><td>${a.name}</td><td>${a.message || 'N/A'}</td><td><a href="https://www.google.com/maps?q=${a.lat},${a.lon}" target="_blank" class="btn btn-sm btn-light">Open Map</a></td></tr>`).join('');
+}
+function renderGeoViolations(violations) {
+document.getElementById('geoViolationLogBody').innerHTML = violations.map(v => `<tr class="log-violation"><td>${new Date(v.timestamp).toLocaleString()}</td><td>${v.name}</td><td>${v.action}</td></tr>`).join('');
+}
+function renderActiveAndCheckedInTables(activeLog, checkedInLog) {
+activeLog.sort((a,b) => (a.status === 'Overdue' ? -1 : 1) - (b.status === 'Overdue' ? -1 : 1));
+document.getElementById('libertyLogBody').innerHTML = activeLog.map(entry => {
+const curfew = getCurfewForEntry(entry.liberty_phase, new Date(entry.checkoutTime));
+return `<tr class="${entry.status === 'Overdue' ? 'status-overdue' : ''}"><td>${entry.status.toUpperCase()}</td><td>${entry.student_name}</td><td>${new Date(entry.checkoutTime).toLocaleTimeString()}</td><td>${curfew.toLocaleTimeString()}</td><td><button class="btn btn-sm btn-success" onclick="checkInStudent('${entry.id}')">CheckIn</button></td></tr>`;
+}).join('');
+checkedInLog.sort((a,b) => new Date(b.checkinTime) - new Date(a.checkinTime));
+document.getElementById('checkedInLogBody').innerHTML = checkedInLog.map(entry => `<tr><td>${entry.student_name}</td><td>${new Date(entry.checkoutTime).toLocaleTimeString()}</td><td>${new Date(entry.checkinTime).toLocaleTimeString()}</td></tr>`).join('');
+document.getElementById('onLibertyCount').textContent = activeLog.length; document.getElementById('overdueCount').textContent = activeLog.filter(e => e.status === 'Overdue').length;
+}
+window.checkInStudent = (id) => {
+db.collection("libertyLog").doc(id).update({ status: "Checked In", checkinTime: new Date().toISOString() });
+};
+});
+</script>
 </body>
 </html>
